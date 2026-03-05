@@ -2,12 +2,24 @@ package com.example.wssm.health
 
 class HeartRateAlgorithm {
 
-    fun calculateBPM(ppg: List<Int>): Int {
-        val peaks = detectPeaks(ppg)
-        val timeBetweenPeaks = averageInterval(peaks)
+    /**
+     * Entry point for the ViewModel.
+     * Takes the String from Health Connect and returns a processed String.
+     */
+    fun process(rawHeartRate: String): String {
+        return if (rawHeartRate.isBlank() || rawHeartRate == "0") "--" else rawHeartRate
+    }
 
-        val bpm = 60_000 / timeBetweenPeaks
-        return bpm
+    /**
+     * Optional: Use this if you are getting raw PPG sensor data from the phone/watch
+     */
+    fun calculateBPM(ppg: List<Int>): Int {
+        if (ppg.size < 2) return 0
+        val peaks = detectPeaks(ppg)
+        if (peaks.size < 2) return 0
+
+        val timeBetweenPeaks = averageInterval(peaks)
+        return if (timeBetweenPeaks > 0) 60_000 / timeBetweenPeaks else 0
     }
 
     private fun detectPeaks(ppg: List<Int>): List<Int> {
@@ -17,6 +29,6 @@ class HeartRateAlgorithm {
 
     private fun averageInterval(peaks: List<Int>): Int {
         val intervals = peaks.zipWithNext { a, b -> b - a }
-        return intervals.average().toInt()
+        return if (intervals.isEmpty()) 0 else intervals.average().toInt()
     }
 }

@@ -1,4 +1,6 @@
 package com.example.wssm.data
+import android.content.Context
+import android.telephony.SmsManager
 
 class AlertManager(private val context: Context) {
 
