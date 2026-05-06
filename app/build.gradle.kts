@@ -1,21 +1,18 @@
-// App-level build.gradle.kts (:app)
 plugins {
     alias(libs.plugins.android.application)
-    // Use the alias from your TOML for BOTH to keep them in sync
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
-
 }
 
 android {
     namespace = "com.example.wssm"
-    compileSdk = 36 // FIXED: Changed from 36 to 35
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.example.wssm"
         minSdk = 26
-        targetSdk = 35 // FIXED: Changed from 36 to 35
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
@@ -29,7 +26,7 @@ android {
         release {
             isMinifyEnabled = false
             proguardFiles(
-                    getDefaultProguardFile("proguard-android-optimize.txt"),
+                getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
         }
@@ -50,33 +47,38 @@ android {
 }
 
 dependencies {
-    implementation(libs.play.services.location)
-    implementation("com.google.maps.android:maps-compose:4.4.1")
+    // 1. Google Maps & Places (Stable Versions)
+    implementation("com.google.maps.android:maps-compose:4.3.3")
+    implementation("com.google.android.gms:play-services-maps:18.2.0")
+    implementation("com.google.android.gms:play-services-location:21.1.0")
+    implementation("com.google.android.libraries.places:places:3.1.0")
 
-    // Core Compose and UI
+
+    // 2. Core Compose and UI (Using BOM)
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
+    implementation("androidx.compose.material:material-icons-extended")
+    implementation("com.google.zxing:core:3.5.3")
 
-    // Core Android and Lifecycle
+    // 3. Navigation & Lifecycle
+    implementation("androidx.navigation:navigation-compose:2.8.5")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.7")
+
+    // 4. Core Android
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.7")
 
-    // Navigation (Fixed version)
-    implementation("androidx.navigation:navigation-compose:2.8.5")
-
-    // Health Connect
+    // 5. Data & Health
+    implementation("com.google.code.gson:gson:2.10.1")
     implementation("androidx.health.connect:connect-client:1.1.0-alpha11")
 
-    // Testing
+    // 6. Testing (CLEANED UP TO FIX YOUR ERROR)
     testImplementation(libs.junit)
-
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     debugImplementation(libs.androidx.compose.ui.tooling)
-    debugImplementation(libs.androidx.compose.ui.test.manifest)
 }

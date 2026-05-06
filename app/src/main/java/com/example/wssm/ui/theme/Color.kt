@@ -2,10 +2,14 @@ package com.example.wssm.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-val Purple80 = Color(0xFFD0BCFF)
-val PurpleGrey80 = Color(0xFFCCC2DC)
-val Pink80 = Color(0xFFEFB8C8)
+// Core Brand Colors
+val BrandDeepBlue = Color(0xFF0F408F)
+val BrandWhite = Color(0xFFFFFFFF)
+val BrandLime = Color(0xFFDEFC8E) // This fixes the NavGraph errors
 
-val Purple40 = Color(0xFF6650a4)
-val PurpleGrey40 = Color(0xFF625b71)
-val Pink40 = Color(0xFF7D5260)
+// Metric & Alert Colors
+val BrandSuccessGreen = Color(0xFF2ECC71)
+val BrandEmergencyRed = Color(0xFFFF0000)
+val BrandLightBlue = Color(0xFF89ADFF)
+val BrandCreme = Color(0xFFFFFDD0)
+val BrandSoftYellow = Color(0xFFF9CA29)
